@@ -1,5 +1,3 @@
-import { ProjectType } from "@types/interfaces";
-import { getAllProjects } from "@lib/requests/getAllProjects";
 import { NextPage, NextApiResponse } from "next";
 import { Component } from "react";
 
@@ -13,34 +11,18 @@ const formatDate: (dateStr?: string) => string = dateStr => {
   }-${date.getUTCDate()}`;
 };
 
-const getSitemap: (
-  projects: ProjectType[]
-) => string = projects => `<?xml version="1.0" encoding="utf-8"?>
+const getSitemap = (): string => `<?xml version="1.0" encoding="utf-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>${createFullUrl("/")}</loc>
     <lastmod>${formatDate()}</lastmod>
   </url>
-  ${projects
-    .map(
-      ({ id }) => `
-  <url>
-    <loc>${createFullUrl(`/${id}`)}</loc>
-    <lastmod>${formatDate()}</lastmod>
-  </url>`
-    )
-    .join("")}
 </urlset>`;
 
 class Sitemap extends Component<NextPage> {
-  static async getInitialProps({
-    res,
-  }: {
-    res: NextApiResponse;
-  }): Promise<void> {
-    const projects = await getAllProjects();
+  static getInitialProps({ res }: { res: NextApiResponse }): void {
     res.setHeader("Content-Type", "text/xml");
-    res.write(getSitemap(projects));
+    res.write(getSitemap());
     res.end();
   }
 }
