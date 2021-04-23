@@ -1,5 +1,4 @@
 import '../src/style/global.css';
-import '../src/mocks/index';
 
 export const parameters = {
   actions: { argTypesRegex: "^on[A-Z].*" },
