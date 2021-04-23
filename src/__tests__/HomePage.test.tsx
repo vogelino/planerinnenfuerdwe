@@ -3,6 +3,6 @@ import HomePage from "../../pages";
 
 describe("page home", () => {
   it("should render without failing", () => {
-    render(<HomePage />);
+    render(<HomePage signatories={[]} error={null} />);
   });
 });

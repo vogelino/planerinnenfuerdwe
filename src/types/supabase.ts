@@ -1,11 +1,11 @@
-export interface UsersType {
+export interface SignatoryType {
   userId: string;
   firstName: string;
   lastName: string;
   createdAt: string;
 }
 
-export interface AuthenticatedUsersType {
+export interface AuthenticatedUserType {
   id: string;
   app_metadata: {
     provider?: string;

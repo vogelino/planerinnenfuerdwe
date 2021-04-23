@@ -1,20 +1,20 @@
 import useSWR, { mutate } from "swr";
 import { supabase } from "@auth/supabase";
-import { UsersType, AuthenticatedUsersType } from "../../../types/supabase";
+import { SignatoryType, AuthenticatedUserType } from "../../../types/supabase";
 import { useAuth } from "@auth/Auth";
 import { useState } from "react";
 
 type UserFetcherSignature = (
-  userId?: AuthenticatedUsersType["id"],
+  userId?: AuthenticatedUserType["id"],
   isLoadingAuth?: boolean
-) => Promise<UsersType | null>;
+) => Promise<SignatoryType | null>;
 
 const fetchUser: UserFetcherSignature = async (userId, isLoadingAuth) => {
   if (isLoadingAuth || isLoadingAuth === undefined) return null;
   if (!userId) throw new Error("Not authenticated");
 
   const { data: user, error } = await supabase
-    .from<UsersType>("users")
+    .from<SignatoryType>("users")
     .select("name")
     .eq("userId", userId)
     .single();
@@ -35,8 +35,8 @@ const deleteUser = async (userId: string | undefined): Promise<void> => {
 
 export const useUserData = (): {
   isLoading: boolean;
-  authenticatedUser: AuthenticatedUsersType | null;
-  user: UsersType | null;
+  authenticatedUser: AuthenticatedUserType | null;
+  user: SignatoryType | null;
   error: Error | null;
   deleteUser: () => Promise<void>;
 } => {
@@ -45,7 +45,7 @@ export const useUserData = (): {
   const userId = authenticatedUser?.id;
 
   const userParams = ["userData", userId, isLoadingAuth];
-  const user = useSWR<UsersType | null, Error>(userParams, () =>
+  const user = useSWR<SignatoryType | null, Error>(userParams, () =>
     fetchUser(userId, isLoadingAuth)
   );
 

@@ -7,11 +7,11 @@ import {
   useCallback,
 } from "react";
 import { supabase } from "../supabase";
-import { AuthenticatedUsersType } from "../../types/supabase";
+import { AuthenticatedUserType } from "../../types/supabase";
 interface AuthContextType {
   signIn: typeof supabase.auth.signIn;
   signOut: typeof supabase.auth.signOut;
-  authenticatedUser: AuthenticatedUsersType | null;
+  authenticatedUser: AuthenticatedUserType | null;
   isLoadingAuth: boolean;
   accessToken: string | null;
 }
