@@ -2,11 +2,7 @@ import * as yup from "yup";
 import { createSupabaseBackendClient } from "@auth/supabase";
 import type { NextApiRequest, NextApiResponse } from "next";
 import password from "secure-random-password";
-import {
-  requiredEmailValidation,
-  requiredFirstNameValidation,
-  requiredLastNameValidation,
-} from "@lib/formValidationUtil";
+import { createFormValidations } from "@lib/formValidationUtil";
 import { SignatoryType } from "src/types/supabase";
 import { LetterSigningFormType } from "../../src/types/letterSigningFormType";
 
@@ -16,10 +12,23 @@ type Data =
       message: string;
     };
 
+const {
+  requiredEmailValidation,
+  requiredFirstNameValidation,
+  requiredLastNameValidation,
+  optionalOrganisationValidation,
+} = createFormValidations({
+  invalidEmailError: "invalidEmailError",
+  requiredEmailError: "requiredEmailError",
+  requiredFirstNameError: "requiredFirstNameError",
+  requiredLastNameError: "requiredLastNameError",
+  tooLongOrganisationNameError: "tooLongOrganisationNameError",
+});
 const reqBodySchema = yup.object().shape({
   firstName: requiredFirstNameValidation,
   lastName: requiredLastNameValidation,
   email: requiredEmailValidation,
+  organisation: optionalOrganisationValidation,
 });
 
 export default async (
