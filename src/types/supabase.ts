@@ -3,6 +3,7 @@ export interface SignatoryType {
   firstName: string;
   lastName: string;
   createdAt: string;
+  confirmedAt: string;
 }
 
 export interface AuthenticatedUserType {

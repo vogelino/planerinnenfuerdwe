@@ -28,7 +28,7 @@ export default async (
 ): Promise<void> => {
   try {
     if (req.method !== "POST")
-      throw new Error("This route is only to be called with the POST method");
+      throw "This route is only to be called with the POST method";
 
     const body = req.body as LetterSigningFormType;
     await reqBodySchema.validate(body);
@@ -39,7 +39,11 @@ export default async (
       password: password.randomString(),
     });
 
-    if (error) throw error;
+    if (error) {
+      if (error.message.includes("already been registered"))
+        throw "Ein Benutzer mit dieser E-Mail-Adresse hat den offenen Brief bereits unterzeichnet.";
+      throw error.message;
+    }
     if (!data) throw "No data was returned from signUp";
     if ("id" in data) {
       const { error } = await supabaseClient

@@ -1,9 +1,22 @@
-import { useState, createContext, FC, useContext, useCallback } from "react";
+import { supabase } from "@auth/supabase";
+import { User } from "@supabase/gotrue-js";
+import {
+  useState,
+  createContext,
+  FC,
+  useContext,
+  useCallback,
+  useEffect,
+} from "react";
+import { SignatoryType } from "src/types/supabase";
 import { LetterSigningFormType } from "../../types/letterSigningFormType";
+
+const HAS_SIGNED_KEY = "HAS_SIGNED_KEY";
 interface AuthContextType {
   signLetter: (data: LetterSigningFormType) => Promise<void> | void;
   hasSignedLetter: boolean | null;
   isSigningLetter: boolean;
+  authIsVerified: boolean;
   error: string | null;
 }
 
@@ -34,7 +47,8 @@ const callSignLetter = async (
 const defaultValue = {
   signLetter: () => undefined,
   hasSignedLetter: null,
-  isSigningLetter: true,
+  isSigningLetter: false,
+  authIsVerified: false,
   error: null,
 };
 
@@ -43,19 +57,66 @@ const AuthContext = createContext<AuthContextType>(defaultValue);
 export const AuthProvider: FC = ({ children }) => {
   const [hasSignedLetter, setHasSignedLetter] = useState<
     AuthContextType["hasSignedLetter"]
-  >(null);
+  >(defaultValue.hasSignedLetter);
   const [isSigningLetter, setIsSigningLetter] = useState<
     AuthContextType["isSigningLetter"]
-  >(true);
-  const [error, setError] = useState<AuthContextType["error"]>(null);
+  >(defaultValue.isSigningLetter);
+  const [authIsVerified, setAuthIsVerified] = useState<
+    AuthContextType["authIsVerified"]
+  >(defaultValue.authIsVerified);
+  const [error, setError] = useState<AuthContextType["error"]>(
+    defaultValue.error
+  );
+
+  useEffect(() => {
+    const session = supabase.auth.session();
+    const hasSigned = !!window.localStorage.getItem(HAS_SIGNED_KEY);
+    hasSigned && setHasSignedLetter(true);
+
+    const verify = async (user?: User): Promise<void> => {
+      if (!user) return;
+
+      setHasSignedLetter(true);
+      window.localStorage.setItem(HAS_SIGNED_KEY, "true");
+
+      if (!user.confirmed_at) return;
+
+      const { error: confirmationError } = await supabase
+        .from<SignatoryType>("signatories")
+        .update({ confirmedAt: user.confirmed_at })
+        .eq("userId", user.id);
+
+      if (confirmationError) {
+        setError(confirmationError.message);
+        return;
+      }
+      setAuthIsVerified(true);
+    };
+
+    const { data: listener } = supabase.auth.onAuthStateChange(
+      (_event, session) => {
+        void verify(session?.user);
+      }
+    );
+
+    void verify(session?.user);
+
+    return () => {
+      listener?.unsubscribe();
+    };
+  }, []);
 
   const signLetter = useCallback(
     async (data: LetterSigningFormType): Promise<void> => {
+      setError(null);
       setIsSigningLetter(true);
       const { error } = await callSignLetter(data);
 
       if (error) setError(error.message);
-      if (!error) setHasSignedLetter(true);
+      if (!error) {
+        setHasSignedLetter(true);
+        window.localStorage.setItem(HAS_SIGNED_KEY, "true");
+      }
       setIsSigningLetter(false);
     },
     [setHasSignedLetter, setIsSigningLetter, setError]
@@ -65,6 +126,7 @@ export const AuthProvider: FC = ({ children }) => {
     signLetter,
     hasSignedLetter,
     isSigningLetter,
+    authIsVerified,
     error,
   };
 

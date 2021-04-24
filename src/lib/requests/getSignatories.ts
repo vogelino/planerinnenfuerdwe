@@ -9,7 +9,9 @@ export const getSignatories = async (
 }> => {
   const { data: signatories, error } = await supabaseClient
     .from<SignatoryType>("signatories")
-    .select("*");
+    .select("*")
+    .not("confirmedAt", "is", null)
+    .order("confirmedAt", { ascending: true });
   if (error) return { signatories: [], error: error.message };
   return { signatories: signatories || [], error: null };
 };
