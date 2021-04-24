@@ -58,12 +58,18 @@ const HomePage: FC<{
       {!isLoading && (
         <div className='mt-2'>
           <ul>
-            {signatories.map(({ userId, firstName, lastName }) => (
-              <li
-                key={userId}
-                className='text-lg py-2 border-b border-gray-200'
-              >{`${firstName} ${lastName}`}</li>
-            ))}
+            {signatories.map(
+              ({ userId, firstName, lastName, organisation }) => (
+                <li key={userId} className='text-lg'>
+                  {`${firstName} ${lastName}`}
+                  {organisation && (
+                    <small className='text-gray-400 ml-3 inline-block'>
+                      {`( ${organisation} )`}
+                    </small>
+                  )}
+                </li>
+              )
+            )}
           </ul>
         </div>
       )}

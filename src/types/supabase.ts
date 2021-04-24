@@ -4,6 +4,7 @@ export interface SignatoryType {
   lastName: string;
   createdAt: string;
   confirmedAt: string;
+  organisation?: string;
 }
 
 export interface AuthenticatedUserType {

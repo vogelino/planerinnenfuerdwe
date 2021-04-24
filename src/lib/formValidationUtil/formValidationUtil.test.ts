@@ -2,6 +2,7 @@ import {
   requiredEmailValidation,
   requiredFirstNameValidation,
   requiredLastNameValidation,
+  optionalOrganisationValidation,
 } from ".";
 
 describe("requiredEmailValidation validation", () => {
@@ -38,5 +39,18 @@ describe("requiredLastNameValidation validation", () => {
   it("should be valid if not empty", async () => {
     const isValid = await requiredLastNameValidation.isValid("Hans");
     expect(isValid).toBe(true);
+  });
+});
+
+describe("optionalOrganisationValidation validation", () => {
+  it("should be valid if empty", async () => {
+    const isValid = await optionalOrganisationValidation.isValid("");
+    expect(isValid).toBe(true);
+  });
+  it("should not be valid if longer than 60 chars", async () => {
+    const isValid = await optionalOrganisationValidation.isValid(
+      "wehfwiqouhgfeoiqfjoiwefjoiqwfjhqowfhqwofiejqwoifejqwiofjqwoifjeoqiwjfwqe"
+    );
+    expect(isValid).toBe(false);
   });
 });

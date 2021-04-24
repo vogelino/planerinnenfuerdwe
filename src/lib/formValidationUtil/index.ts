@@ -12,3 +12,10 @@ export const requiredFirstNameValidation = yup
 export const requiredLastNameValidation = yup
   .string()
   .required("Sie müssen Ihren Nachnamen angeben");
+
+export const optionalOrganisationValidation = yup
+  .string()
+  .max(
+    60,
+    "Der Name Ihrer Organisation darf nicht länger als 60 Zeichen sein."
+  );
