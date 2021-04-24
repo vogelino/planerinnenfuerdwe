@@ -24,7 +24,7 @@ export const CookieBanner: React.FC<{
   return (
     <React.Fragment>
       {cookieStatus === false && (
-        <div className='fixed left-0 p-6 bottom-0 w-full flex justify-center'>
+        <div className='fixed left-0 p-6 bottom-0 w-full flex justify-center bg-white shadow-xl'>
           <div className='w-full max-w-3xl'>
             <div className='mb-2'>
               Diese Webseite verwendet Cookies, um bestimmte Funktionen zu

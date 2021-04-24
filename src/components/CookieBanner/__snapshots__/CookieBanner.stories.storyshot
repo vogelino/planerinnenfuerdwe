@@ -2,7 +2,7 @@
 
 exports[`Storyshots CookieBanner Default 1`] = `
 <div
-  className="fixed left-0 p-6 bottom-0 w-full flex justify-center"
+  className="fixed left-0 p-6 bottom-0 w-full flex justify-center bg-white shadow-xl"
 >
   <div
     className="w-full max-w-3xl"
