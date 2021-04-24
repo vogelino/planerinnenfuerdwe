@@ -43,11 +43,13 @@ const HomePage: FC<{
       )}
       {isLoading && "Loading..."}
       {!isLoading && (
-        <ul>
-          {signatories.map(({ userId, firstName, lastName }) => (
-            <li key={userId}>{`${firstName} ${lastName}`}</li>
-          ))}
-        </ul>
+        <div className='mt-6'>
+          <ul>
+            {signatories.map(({ userId, firstName, lastName }) => (
+              <li key={userId}>{`${firstName} ${lastName}`}</li>
+            ))}
+          </ul>
+        </div>
       )}
     </>
   );

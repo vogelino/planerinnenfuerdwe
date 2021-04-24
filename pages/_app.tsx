@@ -23,7 +23,7 @@ const App: FC<{
         <title>Enteignen ⨉ Arch - Open Letter</title>
       </Head>
       <main
-        className='z-0 relative pb-24'
+        className='z-0 relative p-6'
         style={{
           minHeight: "calc(100vh - 215px)",
         }}
