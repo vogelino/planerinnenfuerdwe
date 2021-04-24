@@ -1,9 +1,16 @@
-import {
+import { createFormValidations } from ".";
+const {
   requiredEmailValidation,
   requiredFirstNameValidation,
   requiredLastNameValidation,
   optionalOrganisationValidation,
-} from ".";
+} = createFormValidations({
+  invalidEmailError: "Error",
+  requiredEmailError: "Error",
+  requiredFirstNameError: "Error",
+  requiredLastNameError: "Error",
+  tooLongOrganisationNameError: "Error",
+});
 
 describe("requiredEmailValidation validation", () => {
   it("should not be valid if empty", async () => {

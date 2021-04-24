@@ -1,5 +1,6 @@
 import { useAuth } from "@auth/Auth";
 import { createSupabaseBackendClient } from "@auth/supabase";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { SubmitSignatoryForm } from "@components/SubmitSignatoryForm";
 import { Feedback } from "@components/Feedback";
 import { useSignatories } from "@lib/hooks/useSignatories";
@@ -8,17 +9,36 @@ import { GetServerSideProps } from "next";
 import { FC } from "react";
 import { SignatoryType } from "../src/types/supabase";
 import { OpenLetterText } from "@components/OpenLetterText";
+import Head from "next/head";
+import { useTranslation } from "react-i18next";
 
-export const getServerSideProps: GetServerSideProps = async () => {
+export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
   const supabaseClient = createSupabaseBackendClient();
   const { signatories, error } = await getSignatories(supabaseClient);
-  return { props: { signatories, error } };
+  return {
+    props: {
+      signatories,
+      error,
+      ...(locale
+        ? await serverSideTranslations(locale, [
+            "common",
+            "content",
+            "cookieBanner",
+            "signatureForm",
+            "siteMetadata",
+          ])
+        : {}),
+    },
+  };
 };
 
 const HomePage: FC<{
   signatories: SignatoryType[];
   error: Error | null;
 }> = ({ signatories: initialSignatories, error }) => {
+  const { t: siteMetaT } = useTranslation("siteMetadata");
+  const { t: formT } = useTranslation("signatureForm");
+  const { t: commonT } = useTranslation("common");
   const {
     signLetter,
     hasSignedLetter,
@@ -32,29 +52,31 @@ const HomePage: FC<{
   const uiError = error?.message || authError || signatoriesError;
   return (
     <>
+      <Head>
+        <title>{siteMetaT("title")}</title>
+        <meta name='description' content={siteMetaT("description")} />
+        <meta name='keywords' content={siteMetaT("keywords")} />
+      </Head>
       <OpenLetterText />
-      <h2 className='pt-8 mb-4 font-bold text-xl'>Sign the letter</h2>
+      <h2 className='pt-8 mb-4 font-bold text-xl'>{formT("heading")}</h2>
       {uiError ||
         (error && <Feedback type='error'>{uiError || error}</Feedback>)}
       {isSigningLetter && (
-        <Feedback type='info'>{"Ihr Eintrag wird übermittelt..."}</Feedback>
+        <Feedback type='info'>{formT("submissionInProgressText")}</Feedback>
       )}
       {hasSignedLetter && !authIsVerified && (
-        <Feedback type='info'>
-          Danke! Ihr Eintrag wurde erfolgreich übermittelt! Wir haben Ihnen eine
-          E-Mail geschickt, um Ihre Identität zu überprüfen.
-        </Feedback>
+        <Feedback type='success'>{formT("pendingConfirmationText")}</Feedback>
       )}
       {hasSignedLetter && authIsVerified && (
-        <Feedback type='success'>
-          Vielen Dank! Sie haben den offenen Brief erfolgreich unterzeichnet!
-        </Feedback>
+        <Feedback type='success'>{formT("submissionSuccessText")}</Feedback>
       )}
       {!hasSignedLetter && !authIsVerified && (
         <SubmitSignatoryForm onSubmit={signLetter} />
       )}
-      <h2 className='pt-12 mb-2 font-bold text-xl'>Those who already signed</h2>
-      {isLoading && "Loading..."}
+      <h2 className='pt-12 mb-2 font-bold text-xl'>
+        {commonT("signatoriesHeadline")}
+      </h2>
+      {isLoading && commonT("loading")}
       {!isLoading && (
         <div className='mt-2'>
           <ul>

@@ -1,21 +1,33 @@
 import * as yup from "yup";
 
-export const requiredEmailValidation = yup
-  .string()
-  .email("Die angegebene E-Mail Adresse ist ungültig")
-  .required("Sie müssen eine E-Mail Adresse angeben");
+export const createFormValidations = (strings: {
+  invalidEmailError: string;
+  requiredEmailError: string;
+  requiredFirstNameError: string;
+  requiredLastNameError: string;
+  tooLongOrganisationNameError: string;
+}): Record<
+  string,
+  yup.StringSchema<
+    string | undefined,
+    Record<string, unknown>,
+    string | undefined
+  >
+> => ({
+  requiredEmailValidation: yup
+    .string()
+    .email(strings.invalidEmailError)
+    .required(strings.requiredEmailError),
 
-export const requiredFirstNameValidation = yup
-  .string()
-  .required("Sie müssen Ihren Vornamen angeben");
+  requiredFirstNameValidation: yup
+    .string()
+    .required(strings.requiredFirstNameError),
 
-export const requiredLastNameValidation = yup
-  .string()
-  .required("Sie müssen Ihren Nachnamen angeben");
+  requiredLastNameValidation: yup
+    .string()
+    .required(strings.requiredLastNameError),
 
-export const optionalOrganisationValidation = yup
-  .string()
-  .max(
-    60,
-    "Der Name Ihrer Organisation darf nicht länger als 60 Zeichen sein."
-  );
+  optionalOrganisationValidation: yup
+    .string()
+    .max(60, strings.tooLongOrganisationNameError),
+});

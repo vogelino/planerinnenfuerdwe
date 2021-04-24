@@ -3,25 +3,33 @@ import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Controller, useForm } from "react-hook-form";
 import { FormTextInput } from "@components/FormTextInput";
-import {
-  requiredEmailValidation,
-  requiredFirstNameValidation,
-  requiredLastNameValidation,
-  optionalOrganisationValidation,
-} from "@lib/formValidationUtil";
+import { createFormValidations } from "@lib/formValidationUtil";
 import { Submit } from "@components/Button";
 import { LetterSigningFormType } from "../../types/letterSigningFormType";
-
-const formSchema = yup.object().shape({
-  firstName: requiredFirstNameValidation,
-  lastName: requiredLastNameValidation,
-  organisation: optionalOrganisationValidation,
-  email: requiredEmailValidation,
-});
+import { useTranslation } from "react-i18next";
 
 export const SubmitSignatoryForm: FC<{
   onSubmit?: (data: LetterSigningFormType) => void;
 }> = ({ onSubmit = console.log }) => {
+  const { t } = useTranslation("signatureForm");
+  const {
+    requiredEmailValidation,
+    requiredFirstNameValidation,
+    requiredLastNameValidation,
+    optionalOrganisationValidation,
+  } = createFormValidations({
+    invalidEmailError: t("invalidEmailError"),
+    requiredEmailError: t("requiredEmailError"),
+    requiredFirstNameError: t("requiredFirstNameError"),
+    requiredLastNameError: t("requiredLastNameError"),
+    tooLongOrganisationNameError: t("tooLongOrganisationNameError"),
+  });
+  const formSchema = yup.object().shape({
+    firstName: requiredFirstNameValidation,
+    lastName: requiredLastNameValidation,
+    organisation: optionalOrganisationValidation,
+    email: requiredEmailValidation,
+  });
   const {
     control,
     handleSubmit,
@@ -41,8 +49,8 @@ export const SubmitSignatoryForm: FC<{
           render={({ field }) => (
             <FormTextInput
               {...field}
-              label='Vorname'
-              placeholder='Deine Vorname'
+              label={t("firstNameLabel")}
+              placeholder={t("firstNamePlaceholder")}
               type='text'
               errors={
                 errors.firstName?.message ? [errors.firstName?.message] : []
@@ -57,8 +65,8 @@ export const SubmitSignatoryForm: FC<{
           render={({ field }) => (
             <FormTextInput
               {...field}
-              label='Nachname'
-              placeholder='Deine Nachname'
+              label={t("lastNameLabel")}
+              placeholder={t("lastNamePlaceholder")}
               type='text'
               errors={
                 errors.lastName?.message ? [errors.lastName?.message] : []
@@ -75,8 +83,8 @@ export const SubmitSignatoryForm: FC<{
           render={({ field }) => (
             <FormTextInput
               {...field}
-              label='Organisation'
-              placeholder='Deine Organisation, Büro oder Universität'
+              label={t("organisationLabel")}
+              placeholder={t("organisationPlaceholder")}
               type='text'
               optional
               errors={
@@ -97,15 +105,15 @@ export const SubmitSignatoryForm: FC<{
           render={({ field }) => (
             <FormTextInput
               {...field}
-              label='E-Mail'
-              placeholder='Deine E-Mail-Adresse...'
+              label={t("emailLabel")}
+              placeholder={t("emailPlaceholder")}
               type='email'
               errors={errors.email?.message ? [errors.email?.message] : []}
             />
           )}
         />
       </fieldset>
-      <Submit>Unterschreiben</Submit>
+      <Submit>{t("submitButtonText")}</Submit>
     </form>
   );
 };
