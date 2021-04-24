@@ -22,12 +22,7 @@ const App: FC<{
         <link rel='manifest' href={`${publicURL}/manifest.json`} />
         <title>Enteignen ⨉ Arch - Open Letter</title>
       </Head>
-      <main
-        className='z-0 relative p-6'
-        style={{
-          minHeight: "calc(100vh - 215px)",
-        }}
-      >
+      <main className='z-0 relative px-6 pb-40 mx-auto w-full max-w-3xl min-h-screen'>
         <Component {...pageProps} />
       </main>
       <CookieBanner />

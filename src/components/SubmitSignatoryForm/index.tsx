@@ -75,6 +75,7 @@ export const SubmitSignatoryForm: FC<{
           />
         )}
       />
+      <br />
       <Submit>Unterschreiben</Submit>
     </form>
   );

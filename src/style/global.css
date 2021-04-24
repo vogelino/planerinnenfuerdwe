@@ -102,8 +102,4 @@
   [type='radio'].error {
     @apply border-red-500 text-red-500 focus:ring-red-500;
   }
-
-  p {
-    @apply max-w-prose;
-  }
 };
