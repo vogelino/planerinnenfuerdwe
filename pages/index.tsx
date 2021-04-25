@@ -11,6 +11,7 @@ import { SignatoryType } from "../src/types/supabase";
 import { OpenLetterText } from "@components/OpenLetterText";
 import Head from "next/head";
 import { useTranslation } from "react-i18next";
+import nextI18NextConfig from "../next-i18next.config.js";
 
 export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
   const supabaseClient = createSupabaseBackendClient();
@@ -20,13 +21,17 @@ export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
       signatories,
       error,
       ...(locale
-        ? await serverSideTranslations(locale, [
-            "common",
-            "content",
-            "cookieBanner",
-            "signatureForm",
-            "siteMetadata",
-          ])
+        ? await serverSideTranslations(
+            locale,
+            [
+              "common",
+              "content",
+              "cookieBanner",
+              "signatureForm",
+              "siteMetadata",
+            ],
+            nextI18NextConfig
+          )
         : {}),
     },
   };
