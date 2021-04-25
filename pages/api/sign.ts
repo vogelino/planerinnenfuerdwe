@@ -5,6 +5,8 @@ import password from "secure-random-password";
 import { createFormValidations } from "@lib/formValidationUtil";
 import { SignatoryType } from "src/types/supabase";
 import { LetterSigningFormType } from "../../src/types/letterSigningFormType";
+import enTexts from "../../public/locales/en/signatureForm.json";
+import deTexts from "../../public/locales/de/signatureForm.json";
 
 type Data =
   | LetterSigningFormType
@@ -12,24 +14,34 @@ type Data =
       message: string;
     };
 
-const {
-  requiredEmailValidation,
-  requiredFirstNameValidation,
-  requiredLastNameValidation,
-  optionalOrganisationValidation,
-} = createFormValidations({
-  invalidEmailError: "invalidEmailError",
-  requiredEmailError: "requiredEmailError",
-  requiredFirstNameError: "requiredFirstNameError",
-  requiredLastNameError: "requiredLastNameError",
-  tooLongOrganisationNameError: "tooLongOrganisationNameError",
-});
-const reqBodySchema = yup.object().shape({
-  firstName: requiredFirstNameValidation,
-  lastName: requiredLastNameValidation,
-  email: requiredEmailValidation,
-  organisation: optionalOrganisationValidation,
-});
+interface ReqBodyType extends LetterSigningFormType {
+  locale: "de" | "en";
+}
+
+// eslint-disable-next-line @typescript-eslint/explicit-function-return-type
+const getValidationSchema = (texts: Record<string, string>) => {
+  const {
+    requiredEmailValidation,
+    requiredFirstNameValidation,
+    requiredLastNameValidation,
+    requiredConditionsValidation,
+    optionalOrganisationValidation,
+  } = createFormValidations({
+    invalidEmailError: texts.invalidEmailError,
+    requiredEmailError: texts.requiredEmailError,
+    requiredFirstNameError: texts.requiredFirstNameError,
+    requiredLastNameError: texts.requiredLastNameError,
+    tooLongOrganisationNameError: texts.tooLongOrganisationNameError,
+    requiredConditionsError: texts.requiredConditionsError,
+  });
+  return yup.object().shape({
+    firstName: requiredFirstNameValidation,
+    lastName: requiredLastNameValidation,
+    email: requiredEmailValidation,
+    organisation: optionalOrganisationValidation,
+    conditionsAccepted: requiredConditionsValidation,
+  });
+};
 
 export default async (
   req: NextApiRequest,
@@ -39,7 +51,10 @@ export default async (
     if (req.method !== "POST")
       throw "This route is only to be called with the POST method";
 
-    const body = req.body as LetterSigningFormType;
+    const body = req.body as ReqBodyType;
+    const reqBodySchema = getValidationSchema(
+      body.locale === "de" ? deTexts : enTexts
+    );
     await reqBodySchema.validate(body);
 
     const supabaseClient = createSupabaseBackendClient();
@@ -61,6 +76,7 @@ export default async (
           userId: data.id,
           firstName: body.firstName,
           lastName: body.lastName,
+          organisation: body.organisation,
         });
 
       if (error) throw error;

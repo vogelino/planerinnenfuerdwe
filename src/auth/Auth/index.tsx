@@ -1,5 +1,6 @@
 import { supabase } from "@auth/supabase";
 import { User } from "@supabase/gotrue-js";
+import { useRouter } from "next/router";
 import {
   useState,
   createContext,
@@ -21,7 +22,8 @@ interface AuthContextType {
 }
 
 const callSignLetter = async (
-  data: LetterSigningFormType
+  data: LetterSigningFormType,
+  locale: "de" | "en"
 ): Promise<{
   error: Error | null;
 }> => {
@@ -31,7 +33,10 @@ const callSignLetter = async (
   const requestOptions = {
     method: "POST",
     headers: myHeaders,
-    body: JSON.stringify(data),
+    body: JSON.stringify({
+      ...data,
+      locale,
+    }),
     redirect: "follow" as const,
   };
 
@@ -55,6 +60,7 @@ const defaultValue = {
 const AuthContext = createContext<AuthContextType>(defaultValue);
 
 export const AuthProvider: FC = ({ children }) => {
+  const { locale } = useRouter();
   const [hasSignedLetter, setHasSignedLetter] = useState<
     AuthContextType["hasSignedLetter"]
   >(defaultValue.hasSignedLetter);
@@ -110,7 +116,10 @@ export const AuthProvider: FC = ({ children }) => {
     async (data: LetterSigningFormType): Promise<void> => {
       setError(null);
       setIsSigningLetter(true);
-      const { error } = await callSignLetter(data);
+      const { error } = await callSignLetter(
+        data,
+        locale === "de" ? "de" : "en"
+      );
 
       if (error) setError(error.message);
       if (!error) {
@@ -119,7 +128,7 @@ export const AuthProvider: FC = ({ children }) => {
       }
       setIsSigningLetter(false);
     },
-    [setHasSignedLetter, setIsSigningLetter, setError]
+    [setHasSignedLetter, setIsSigningLetter, setError, locale]
   );
 
   const value = {
