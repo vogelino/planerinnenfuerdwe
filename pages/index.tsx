@@ -12,6 +12,7 @@ import { OpenLetterText } from "@components/OpenLetterText";
 import Head from "next/head";
 import { useTranslation } from "react-i18next";
 import nextI18NextConfig from "../next-i18next.config.js";
+import { LanguageSwitch } from "@components/LanguageSwitch";
 
 export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
   const supabaseClient = createSupabaseBackendClient();
@@ -62,10 +63,14 @@ const HomePage: FC<{
         <meta name='description' content={siteMetaT("description")} />
         <meta name='keywords' content={siteMetaT("keywords")} />
       </Head>
+      <div className='text-right'>
+        <LanguageSwitch />
+      </div>
       <OpenLetterText />
       <h2 className='pt-8 mb-4 font-bold text-xl'>{formT("heading")}</h2>
-      {uiError ||
-        (error && <Feedback type='error'>{uiError || error}</Feedback>)}
+      {(uiError || error) && (
+        <Feedback type='error'>{uiError || error}</Feedback>
+      )}
       {isSigningLetter && (
         <Feedback type='info'>{formT("submissionInProgressText")}</Feedback>
       )}
