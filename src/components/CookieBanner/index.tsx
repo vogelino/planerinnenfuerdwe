@@ -24,14 +24,14 @@ export const CookieBanner: React.FC<{
   return (
     <React.Fragment>
       {cookieStatus === false && (
-        <div className='fixed left-0 p-6 bottom-0 w-full flex justify-center bg-white shadow-xl'>
-          <div className='w-full max-w-3xl'>
+        <div className='fixed left-0 py-6 bottom-0 w-full flex justify-center bg-white shadow-2xl border-t border-gray-200'>
+          <div className='mx-auto prose-blue prose prose-sm sm:prose lg:prose-lg px-6'>
             <div className='mb-2'>
               Diese Webseite verwendet Cookies, um bestimmte Funktionen zu
               ermöglichen und das Angebot zu verbessern. Indem Sie hier
               fortfahren, stimmen Sie der Nutzung von Cookies zu.
             </div>
-            <div className='flex gap-6 items-center'>
+            <div className='flex gap-6 items-center justify-between'>
               <Link href='/privacy'>
                 <TextLink href='/privacy'>Weitere Informationen</TextLink>
               </Link>
