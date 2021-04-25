@@ -50,9 +50,9 @@ export const FormTextInput = forwardRef<
           {...inputProps}
         />
         {errors.map(error => (
-          <p className='text-red-500 text-sm' key={error}>
+          <div className='text-red-500 text-sm mt-2' key={error}>
             {error}
-          </p>
+          </div>
         ))}
       </div>
     );

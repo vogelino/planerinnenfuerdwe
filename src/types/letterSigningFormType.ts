@@ -3,4 +3,5 @@ export interface LetterSigningFormType {
   firstName: string;
   lastName: string;
   organisation?: string;
+  conditionsAccepted?: true;
 }

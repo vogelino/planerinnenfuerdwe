@@ -11,20 +11,18 @@ interface FormCheckboxPropType
 // eslint-disable-next-line react/display-name
 export const FormCheckbox = forwardRef<HTMLInputElement, FormCheckboxPropType>(
   ({ name, label, optional = false, errors = [], ...checkboxProps }, ref) => (
-    <section className='flex'>
+    <section className='flex gap-1'>
       <input
         type='checkbox'
         name={name}
         {...checkboxProps}
         ref={ref}
-        className={`transform translate-y-1 ${
-          errors.length > 0 ? "error" : ""
-        }`}
+        className={`${errors.length > 0 ? "error" : ""}`}
       />
       {(label || errors.length > 0) && (
-        <div>
+        <div className='leading-tight text-base'>
           {label && (
-            <label htmlFor='areConditionsAccepted' className='leading-5'>
+            <label htmlFor='areConditionsAccepted'>
               {label}
               {optional && (
                 <span className='text-gray-500 float-right text-sm ml-2 transform translate-y-1'>
@@ -34,9 +32,9 @@ export const FormCheckbox = forwardRef<HTMLInputElement, FormCheckboxPropType>(
             </label>
           )}
           {errors.map(error => (
-            <p className='text-red-500 text-sm' key={error}>
+            <div className='text-red-500 text-sm mt-2' key={error}>
               {error}
-            </p>
+            </div>
           ))}
         </div>
       )}

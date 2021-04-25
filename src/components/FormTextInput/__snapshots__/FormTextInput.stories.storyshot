@@ -100,16 +100,16 @@ exports[`Storyshots Forms/FormTextInput With Error 1`] = `
     required={true}
     type="text"
   />
-  <p
-    className="text-red-500 text-sm"
+  <div
+    className="text-red-500 text-sm mt-2"
   >
     Your name has to be beautiful
-  </p>
-  <p
-    className="text-red-500 text-sm"
+  </div>
+  <div
+    className="text-red-500 text-sm mt-2"
   >
     Your name is not long enough
-  </p>
+  </div>
 </div>
 `;
 

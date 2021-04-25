@@ -4,12 +4,14 @@ const {
   requiredFirstNameValidation,
   requiredLastNameValidation,
   optionalOrganisationValidation,
+  requiredConditionsValidation,
 } = createFormValidations({
   invalidEmailError: "Error",
   requiredEmailError: "Error",
   requiredFirstNameError: "Error",
   requiredLastNameError: "Error",
   tooLongOrganisationNameError: "Error",
+  requiredConditionsError: "Error",
 });
 
 describe("requiredEmailValidation validation", () => {
@@ -45,6 +47,17 @@ describe("requiredLastNameValidation validation", () => {
   });
   it("should be valid if not empty", async () => {
     const isValid = await requiredLastNameValidation.isValid("Hans");
+    expect(isValid).toBe(true);
+  });
+});
+
+describe("requiredConditionsError validation", () => {
+  it("should not be valid if empty", async () => {
+    const isValid = await requiredConditionsValidation.isValid(undefined);
+    expect(isValid).toBe(false);
+  });
+  it("should be valid if not empty", async () => {
+    const isValid = await requiredConditionsValidation.isValid(true);
     expect(isValid).toBe(true);
   });
 });

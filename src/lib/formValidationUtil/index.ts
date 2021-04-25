@@ -1,4 +1,5 @@
 import * as yup from "yup";
+import { MixedSchema } from "yup/lib/mixed";
 
 export const createFormValidations = (strings: {
   invalidEmailError: string;
@@ -6,13 +7,15 @@ export const createFormValidations = (strings: {
   requiredFirstNameError: string;
   requiredLastNameError: string;
   tooLongOrganisationNameError: string;
+  requiredConditionsError: string;
 }): Record<
   string,
-  yup.StringSchema<
-    string | undefined,
-    Record<string, unknown>,
-    string | undefined
-  >
+  | yup.StringSchema<
+      string | undefined,
+      Record<string, unknown>,
+      string | undefined
+    >
+  | MixedSchema<boolean | undefined, Record<string, unknown>>
 > => ({
   requiredEmailValidation: yup
     .string()
@@ -30,4 +33,9 @@ export const createFormValidations = (strings: {
   optionalOrganisationValidation: yup
     .string()
     .max(60, strings.tooLongOrganisationNameError),
+
+  requiredConditionsValidation: yup
+    .mixed()
+    .required(strings.requiredConditionsError)
+    .oneOf([true], strings.requiredConditionsError),
 });

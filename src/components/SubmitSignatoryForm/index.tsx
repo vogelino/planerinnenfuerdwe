@@ -7,6 +7,7 @@ import { createFormValidations } from "@lib/formValidationUtil";
 import { Submit } from "@components/Button";
 import { LetterSigningFormType } from "../../types/letterSigningFormType";
 import { useTranslation } from "react-i18next";
+import { FormCheckbox } from "@components/FormCheckbox";
 
 export const SubmitSignatoryForm: FC<{
   onSubmit?: (data: LetterSigningFormType) => void;
@@ -17,11 +18,13 @@ export const SubmitSignatoryForm: FC<{
     requiredFirstNameValidation,
     requiredLastNameValidation,
     optionalOrganisationValidation,
+    requiredConditionsValidation,
   } = createFormValidations({
     invalidEmailError: t("invalidEmailError"),
     requiredEmailError: t("requiredEmailError"),
     requiredFirstNameError: t("requiredFirstNameError"),
     requiredLastNameError: t("requiredLastNameError"),
+    requiredConditionsError: t("requiredConditionsError"),
     tooLongOrganisationNameError: t("tooLongOrganisationNameError"),
   });
   const formSchema = yup.object().shape({
@@ -29,6 +32,7 @@ export const SubmitSignatoryForm: FC<{
     lastName: requiredLastNameValidation,
     organisation: optionalOrganisationValidation,
     email: requiredEmailValidation,
+    conditionsAccepted: requiredConditionsValidation,
   });
   const {
     control,
@@ -37,7 +41,12 @@ export const SubmitSignatoryForm: FC<{
   } = useForm<LetterSigningFormType>({
     resolver: yupResolver(formSchema),
   });
-  const onInternalSubmit = handleSubmit(data => onSubmit(data));
+  const onInternalSubmit = handleSubmit(data =>
+    onSubmit({
+      ...data,
+      conditionsAccepted: !!data.conditionsAccepted,
+    })
+  );
 
   return (
     <form onSubmit={onInternalSubmit} noValidate>
@@ -113,7 +122,27 @@ export const SubmitSignatoryForm: FC<{
           )}
         />
       </fieldset>
-      <Submit>{t("submitButtonText")}</Submit>
+      <fieldset className='flex gap-4 mb-2 items-start'>
+        <Controller
+          name='conditionsAccepted'
+          control={control}
+          defaultValue=''
+          render={({ field }) => (
+            <FormCheckbox
+              {...field}
+              label={t("conditionsLabel")}
+              errors={
+                errors.conditionsAccepted?.message
+                  ? [errors.conditionsAccepted?.message]
+                  : []
+              }
+            />
+          )}
+        />
+        <Submit variant='primary' className='float-right'>
+          {t("submitButtonText")}
+        </Submit>
+      </fieldset>
     </form>
   );
 };
