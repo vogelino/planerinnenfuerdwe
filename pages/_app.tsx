@@ -27,7 +27,7 @@ class MyApp extends App {
             <link rel='apple-touch-icon' href={`${publicURL}/logo192.png`} />
             <link rel='manifest' href={`${publicURL}/manifest.json`} />
           </Head>
-          <main className='z-0 relative px-6 pt-4 pb-40 mx-auto prose-blue prose prose-sm sm:prose lg:prose-lg min-h-screen'>
+          <main className='z-0 relative px-6 pt-4 pb-40 min-h-screen'>
             <Component {...(this.props.pageProps || {})} />
           </main>
           <CookieBanner />

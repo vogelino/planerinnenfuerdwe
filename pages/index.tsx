@@ -67,44 +67,46 @@ const HomePage: FC<{
         <LanguageSwitch />
       </div>
       <OpenLetterText />
-      <h2 className='pt-8 mb-4 font-bold text-xl'>{formT("heading")}</h2>
-      {(uiError || error) && (
-        <Feedback type='error'>{uiError || error}</Feedback>
-      )}
-      {isSigningLetter && (
-        <Feedback type='info'>{formT("submissionInProgressText")}</Feedback>
-      )}
-      {hasSignedLetter && !authIsVerified && (
-        <Feedback type='success'>{formT("pendingConfirmationText")}</Feedback>
-      )}
-      {hasSignedLetter && authIsVerified && (
-        <Feedback type='success'>{formT("submissionSuccessText")}</Feedback>
-      )}
-      {!hasSignedLetter && !authIsVerified && (
-        <SubmitSignatoryForm onSubmit={signLetter} />
-      )}
-      <h2 className='pt-12 mb-2 font-bold text-xl'>
-        {commonT("signatoriesHeadline")}
-      </h2>
-      {isLoading && commonT("loading")}
-      {!isLoading && (
-        <div className='mt-2'>
-          <ul>
-            {signatories.map(
-              ({ userId, firstName, lastName, organisation }) => (
-                <li key={userId} className='text-lg'>
-                  {`${firstName} ${lastName}`}
-                  {organisation && (
-                    <small className='text-gray-400 ml-3 inline-block'>
-                      {`( ${organisation} )`}
-                    </small>
-                  )}
-                </li>
-              )
-            )}
-          </ul>
-        </div>
-      )}
+      <div className='mx-auto prose-blue prose prose-sm sm:prose lg:prose-lg'>
+        <h2 className='pt-8 mb-4 font-bold text-xl'>{formT("heading")}</h2>
+        {(uiError || error) && (
+          <Feedback type='error'>{uiError || error}</Feedback>
+        )}
+        {isSigningLetter && (
+          <Feedback type='info'>{formT("submissionInProgressText")}</Feedback>
+        )}
+        {hasSignedLetter && !authIsVerified && (
+          <Feedback type='success'>{formT("pendingConfirmationText")}</Feedback>
+        )}
+        {hasSignedLetter && authIsVerified && (
+          <Feedback type='success'>{formT("submissionSuccessText")}</Feedback>
+        )}
+        {!hasSignedLetter && !authIsVerified && (
+          <SubmitSignatoryForm onSubmit={signLetter} />
+        )}
+        <h2 className='pt-12 mb-2 font-bold text-xl'>
+          {commonT("signatoriesHeadline")}
+        </h2>
+        {isLoading && commonT("loading")}
+        {!isLoading && (
+          <div className='mt-2'>
+            <ul>
+              {signatories.map(
+                ({ userId, firstName, lastName, organisation }) => (
+                  <li key={userId} className='text-lg'>
+                    {`${firstName} ${lastName}`}
+                    {organisation && (
+                      <small className='text-gray-400 ml-3 inline-block'>
+                        {`( ${organisation} )`}
+                      </small>
+                    )}
+                  </li>
+                )
+              )}
+            </ul>
+          </div>
+        )}
+      </div>
     </>
   );
 };

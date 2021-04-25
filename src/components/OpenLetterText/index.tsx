@@ -1,18 +1,33 @@
 import { FC } from "react";
 import { useTranslation } from "next-i18next";
 import ReactMarkdown from "react-markdown";
+import { ExpandableParagraph } from "@components/ExpandableParagraph";
 
 export const OpenLetterText: FC = () => {
   const { t } = useTranslation("content");
   return (
     <div className='my-8'>
-      <h1 className='text-4xl mb-6'>{t("title")}</h1>
-      <ReactMarkdown>{t("introductionMD")}</ReactMarkdown>
+      <div className='mx-auto prose-blue prose prose-sm sm:prose lg:prose-lg'>
+        <h1 className='text-4xl mb-6'>{t("title")}</h1>
+        <ReactMarkdown>{t("introductionMD")}</ReactMarkdown>
+      </div>
       <br />
-      <ReactMarkdown>{t("block1IntroMD")}</ReactMarkdown>
-      <ReactMarkdown>{t("block2IntroMD")}</ReactMarkdown>
-      <ReactMarkdown>{t("block3IntroMD")}</ReactMarkdown>
-      <ReactMarkdown>{t("block4IntroMD")}</ReactMarkdown>
+      <ExpandableParagraph
+        introduction={t("block1IntroMD")}
+        content={t("block1ContentMD")}
+      />
+      <ExpandableParagraph
+        introduction={t("block2IntroMD")}
+        content={t("block2ContentMD")}
+      />
+      <ExpandableParagraph
+        introduction={t("block3IntroMD")}
+        content={t("block3ContentMD")}
+      />
+      <ExpandableParagraph
+        introduction={t("block4IntroMD")}
+        content={t("block4ContentMD")}
+      />
     </div>
   );
 };
