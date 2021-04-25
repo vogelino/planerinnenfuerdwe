@@ -93,8 +93,8 @@ const HomePage: FC<{
             <ul>
               {signatories.map(
                 ({ userId, firstName, lastName, organisation }) => (
-                  <li key={userId} className='text-lg flex gap-x-3 flex-wrap'>
-                    {`${firstName} ${lastName}`}
+                  <li key={userId} className='text-lg'>
+                    <span className='mr-3'>{`${firstName} ${lastName}`}</span>
                     {organisation && (
                       <small className='text-gray-400 inline-block'>
                         {`( ${organisation} )`}
