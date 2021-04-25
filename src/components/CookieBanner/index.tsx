@@ -2,10 +2,12 @@ import { Button } from "@components/Button";
 import { TextLink } from "@components/TextLink";
 import Link from "next/link";
 import React, { useState } from "react";
+import { useTranslation } from "react-i18next";
 
 export const CookieBanner: React.FC<{
   ignoreCookie?: true;
 }> = ({ ignoreCookie }) => {
+  const { t } = useTranslation("cookieBanner");
   const cookie = typeof window !== "undefined" && window.document.cookie;
   const cookieIsAccepted = cookie
     ? Boolean(
@@ -24,19 +26,15 @@ export const CookieBanner: React.FC<{
   return (
     <React.Fragment>
       {cookieStatus === false && (
-        <div className='fixed left-0 py-6 bottom-0 w-full flex justify-center bg-white shadow-2xl border-t border-gray-200'>
-          <div className='mx-auto prose-blue prose prose-sm sm:prose lg:prose-lg px-6'>
-            <div className='mb-2'>
-              Diese Webseite verwendet Cookies, um bestimmte Funktionen zu
-              ermöglichen und das Angebot zu verbessern. Indem Sie hier
-              fortfahren, stimmen Sie der Nutzung von Cookies zu.
-            </div>
+        <div className='fixed left-0 p-6 bottom-0 w-full flex justify-center bg-white shadow-2xl border-t border-gray-200'>
+          <div className='mx-auto prose-blue prose prose-sm sm:prose lg:prose-lg'>
+            <div className='mb-2'>{t("message")}</div>
             <div className='flex gap-6 items-center justify-between'>
               <Link href='/privacy'>
-                <TextLink href='/privacy'>Weitere Informationen</TextLink>
+                <TextLink href='/privacy'>{t("moreInfoLinkText")}</TextLink>
               </Link>
               <Button variant='primary' onClick={acceptCookies}>
-                Akzeptieren
+                {t("acceptButtonText")}
               </Button>
             </div>
           </div>

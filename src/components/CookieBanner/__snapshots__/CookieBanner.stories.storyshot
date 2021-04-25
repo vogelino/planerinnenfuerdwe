@@ -2,15 +2,15 @@
 
 exports[`Storyshots CookieBanner Default 1`] = `
 <div
-  className="fixed left-0 py-6 bottom-0 w-full flex justify-center bg-white shadow-2xl border-t border-gray-200"
+  className="fixed left-0 p-6 bottom-0 w-full flex justify-center bg-white shadow-2xl border-t border-gray-200"
 >
   <div
-    className="mx-auto prose-blue prose prose-sm sm:prose lg:prose-lg px-6"
+    className="mx-auto prose-blue prose prose-sm sm:prose lg:prose-lg"
   >
     <div
       className="mb-2"
     >
-      Diese Webseite verwendet Cookies, um bestimmte Funktionen zu ermöglichen und das Angebot zu verbessern. Indem Sie hier fortfahren, stimmen Sie der Nutzung von Cookies zu.
+      message
     </div>
     <div
       className="flex gap-6 items-center justify-between"
@@ -21,7 +21,7 @@ exports[`Storyshots CookieBanner Default 1`] = `
         onClick={[Function]}
         onMouseEnter={[Function]}
       >
-        Weitere Informationen
+        moreInfoLinkText
       </a>
       <button
         className="text-lg px-4 py-2 font-sans transition cursor-pointer focus-offset focus:ring-blue-500 bg-blue-500 text-white hover:opacity-60"
@@ -29,7 +29,7 @@ exports[`Storyshots CookieBanner Default 1`] = `
         type="button"
         variant="primary"
       >
-        Akzeptieren
+        acceptButtonText
       </button>
     </div>
   </div>
