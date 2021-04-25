@@ -122,7 +122,7 @@ export const SubmitSignatoryForm: FC<{
           )}
         />
       </fieldset>
-      <fieldset className='flex gap-4 mb-2 items-start'>
+      <fieldset className='grid grid-cols-1 sm:grid-cols-2 gap-4 mb-2 items-start'>
         <Controller
           name='conditionsAccepted'
           control={control}
