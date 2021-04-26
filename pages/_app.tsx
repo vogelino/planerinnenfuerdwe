@@ -7,6 +7,7 @@ import { CookieBanner } from "@components/CookieBanner";
 import { AuthProvider } from "@auth/Auth";
 
 import "../src/style/global.css";
+import { Footer } from "@components/Footer";
 
 const publicURL = process.env.NEXT_PUBLIC_WEB_URL || "";
 
@@ -26,8 +27,9 @@ class MyApp extends App {
             <link rel='apple-touch-icon' href={`${publicURL}/logo192.png`} />
             <link rel='manifest' href={`${publicURL}/manifest.json`} />
           </Head>
-          <main className='z-0 relative px-6 pt-4 pb-40 min-h-screen'>
+          <main className='z-0 relative px-6 pt-4 pb-20 min-h-screen'>
             <Component {...(this.props.pageProps || {})} />
+            <Footer />
           </main>
           <CookieBanner />
         </AuthProvider>

@@ -14,7 +14,9 @@ export const SignaturesList: FC<SignaturesListPropType> = ({
   const { t } = useTranslation("common");
   return (
     <>
-      <h2 className='pt-12 mb-2 font-bold text-xl'>{t("headline")}</h2>
+      <h2 className='pt-12 mb-2 font-bold text-xl'>
+        {t("signatoriesHeadline")}
+      </h2>
       {isLoading && t("loadingText")}
       {!isLoading && (
         <div className='mt-2'>

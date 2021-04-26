@@ -13,7 +13,7 @@ export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
       ...(locale
         ? await serverSideTranslations(
             locale,
-            ["common", "privacy", "cookieBanner", "siteMetadata"],
+            ["common", "footer", "privacy", "cookieBanner", "siteMetadata"],
             nextI18NextConfig
           )
         : {}),

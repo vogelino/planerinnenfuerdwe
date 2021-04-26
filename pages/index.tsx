@@ -26,6 +26,7 @@ export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
             locale,
             [
               "common",
+              "footer",
               "content",
               "cookieBanner",
               "signatureForm",

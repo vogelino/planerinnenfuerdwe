@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Storyshots Layout/Footer Default 1`] = `
+<footer
+  className="mt-40 opacity-75 pt-8 border-t border-gray-150 mx-auto prose-blue prose prose-sm sm:prose lg:prose-lg text-sm"
+>
+  <p>
+    contentMD
+  </p>
+  <a
+    className="focus-offset underline transition hover:opacity-60 cursor-pointer text-blue-500 focus:ring-blue-500"
+    href="/privacy"
+    onClick={[Function]}
+    onMouseEnter={[Function]}
+  >
+    privacyLinkText
+  </a>
+</footer>
+`;
