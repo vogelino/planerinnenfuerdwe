@@ -13,7 +13,7 @@ describe("NotFoundPage component", () => {
   it("should render a back link", (): void => {
     render(<NotFoundPage />);
 
-    const backLink = screen.getByText(/Zurück zur/gi);
+    const backLink = screen.getByText(/Zurück zum offenen Brief/gi);
     expect(backLink).toBeInTheDocument();
   });
 });

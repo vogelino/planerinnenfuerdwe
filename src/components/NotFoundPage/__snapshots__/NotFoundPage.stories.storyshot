@@ -1,19 +1,24 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Storyshots Pages/NotFoundPage Default 1`] = `
-Array [
-  <h1>
-    Die angeforderte Seite existiert nicht.
-  </h1>,
-  <span>
-    Zurück zur 
-    <a
-      href="/"
-      onClick={[Function]}
-      onMouseEnter={[Function]}
-    >
-      Startseite
-    </a>
-  </span>,
-]
+<div
+  className="mx-auto prose-blue prose prose-sm sm:prose lg:prose-lg grid min-h-screen -mt-8 items-center grid-cols-1"
+>
+  <div>
+    <h2>
+      Die angeforderte Seite existiert nicht.
+      <br />
+      The requested page does not exist.
+    </h2>
+    <p>
+      <a
+        href="/"
+        onClick={[Function]}
+        onMouseEnter={[Function]}
+      >
+        Zurück zum offenen Brief / Back to the open letter
+      </a>
+    </p>
+  </div>
+</div>
 `;

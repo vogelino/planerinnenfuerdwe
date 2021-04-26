@@ -13,6 +13,8 @@ import { useTranslation } from "react-i18next";
 import nextI18NextConfig from "../next-i18next.config.js";
 import { LanguageSwitch } from "@components/LanguageSwitch";
 import { SignaturesList } from "@components/SignaturesList";
+import { Footer } from "@components/Footer";
+import { CookieBanner } from "@components/CookieBanner";
 
 export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
   const supabaseClient = createSupabaseBackendClient();
@@ -75,6 +77,8 @@ const HomePage: FC<{
         />
         <SignaturesList isLoading={isLoading} signatories={signatories} />
       </div>
+      <Footer />
+      <CookieBanner />
     </>
   );
 };

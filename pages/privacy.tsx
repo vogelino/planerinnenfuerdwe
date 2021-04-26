@@ -6,6 +6,8 @@ import { useTranslation } from "react-i18next";
 import nextI18NextConfig from "../next-i18next.config.js";
 import { LanguageSwitch } from "@components/LanguageSwitch";
 import ReactMarkdown from "react-markdown";
+import { Footer } from "@components/Footer";
+import { CookieBanner } from "@components/CookieBanner";
 
 export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
   return {
@@ -40,6 +42,8 @@ const PrivacyPage: FC = () => {
         <h1 className='pt-8 mb-4 font-bold text-xl'>{privacyT("headline")}</h1>
         <ReactMarkdown>{privacyT("contentMD")}</ReactMarkdown>
       </div>
+      <Footer />
+      <CookieBanner />
     </>
   );
 };
