@@ -1,12 +1,14 @@
 import { Button } from "@components/Button";
 import { TextLink } from "@components/TextLink";
 import Link from "next/link";
-import React, { useState } from "react";
+import { FC, useState } from "react";
 import { useTranslation } from "react-i18next";
 
-export const CookieBanner: React.FC<{
+interface CookieBannerPropType {
   ignoreCookie?: true;
-}> = ({ ignoreCookie }) => {
+}
+
+export const CookieBanner: FC<CookieBannerPropType> = ({ ignoreCookie }) => {
   const { t } = useTranslation("cookieBanner");
   const cookie = typeof window !== "undefined" && window.document.cookie;
   const cookieIsAccepted = cookie
@@ -23,23 +25,19 @@ export const CookieBanner: React.FC<{
     setCookieStatus(true);
   };
 
-  return (
-    <React.Fragment>
-      {cookieStatus === false && (
-        <div className='fixed left-0 p-6 bottom-0 w-full flex justify-center bg-white shadow-2xl border-t border-gray-200'>
-          <div className='mx-auto prose-blue prose prose-sm sm:prose lg:prose-lg'>
-            <div className='mb-2'>{t("message")}</div>
-            <div className='flex gap-6 items-center justify-between'>
-              <Link href='/privacy'>
-                <TextLink href='/privacy'>{t("moreInfoLinkText")}</TextLink>
-              </Link>
-              <Button variant='primary' onClick={acceptCookies}>
-                {t("acceptButtonText")}
-              </Button>
-            </div>
-          </div>
+  return cookieStatus === false ? (
+    <div className='fixed left-0 p-6 bottom-0 w-full flex justify-center bg-white shadow-2xl border-t border-gray-200'>
+      <div className='mx-auto prose-blue prose prose-sm sm:prose lg:prose-lg'>
+        <div className='mb-2'>{t("message")}</div>
+        <div className='flex gap-6 items-center justify-between'>
+          <Link href='/privacy'>
+            <TextLink href='/privacy'>{t("moreInfoLinkText")}</TextLink>
+          </Link>
+          <Button variant='primary' onClick={acceptCookies}>
+            {t("acceptButtonText")}
+          </Button>
         </div>
-      )}
-    </React.Fragment>
-  );
+      </div>
+    </div>
+  ) : null;
 };

@@ -15,6 +15,8 @@ describe("404 page", () => {
       query: { id: 1 },
       prefetch: () => Promise.resolve(true),
     }));
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     render(<NextApp Component={() => <span />} pageProps={{}} />);
   });
 });

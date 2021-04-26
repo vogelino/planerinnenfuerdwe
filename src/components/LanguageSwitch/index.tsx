@@ -8,8 +8,10 @@ export const LanguageSwitch: FC = () => {
   const router = useRouter();
   const { t } = useTranslation("common");
   return (
-    <Link href={router.asPath} locale={router.locale === "en" ? "de" : "en"}>
-      <TextLink href={router.asPath}>{t("otherLocale")}</TextLink>
-    </Link>
+    <div className='text-right'>
+      <Link href={router.asPath} locale={router.locale === "en" ? "de" : "en"}>
+        <TextLink href={router.asPath}>{t("otherLocale")}</TextLink>
+      </Link>
+    </div>
   );
 };

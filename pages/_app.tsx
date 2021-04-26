@@ -23,7 +23,6 @@ class MyApp extends App {
               content='width=device-width, initial-scale=1'
             />
             <meta name='theme-color' content='#000000' />
-            <meta name='description' content='FIXME' />
             <link rel='apple-touch-icon' href={`${publicURL}/logo192.png`} />
             <link rel='manifest' href={`${publicURL}/manifest.json`} />
           </Head>

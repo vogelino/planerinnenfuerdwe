@@ -2,7 +2,6 @@ import { useAuth } from "@auth/Auth";
 import { createSupabaseBackendClient } from "@auth/supabase";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { SubmitSignatoryForm } from "@components/SubmitSignatoryForm";
-import { Feedback } from "@components/Feedback";
 import { useSignatories } from "@lib/hooks/useSignatories";
 import { getSignatories } from "@lib/requests/getSignatories";
 import { GetServerSideProps } from "next";
@@ -13,6 +12,7 @@ import Head from "next/head";
 import { useTranslation } from "react-i18next";
 import nextI18NextConfig from "../next-i18next.config.js";
 import { LanguageSwitch } from "@components/LanguageSwitch";
+import { SignaturesList } from "@components/SignaturesList";
 
 export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
   const supabaseClient = createSupabaseBackendClient();
@@ -42,9 +42,7 @@ const HomePage: FC<{
   signatories: SignatoryType[];
   error: Error | null;
 }> = ({ signatories: initialSignatories, error }) => {
-  const { t: siteMetaT } = useTranslation("siteMetadata");
-  const { t: formT } = useTranslation("signatureForm");
-  const { t: commonT } = useTranslation("common");
+  const { t } = useTranslation("siteMetadata");
   const {
     signLetter,
     hasSignedLetter,
@@ -59,53 +57,22 @@ const HomePage: FC<{
   return (
     <>
       <Head>
-        <title>{siteMetaT("title")}</title>
-        <meta name='description' content={siteMetaT("description")} />
-        <meta name='keywords' content={siteMetaT("keywords")} />
+        <title>{t("title")}</title>
+        <meta name='description' content={t("description")} />
+        <meta name='keywords' content={t("keywords")} />
       </Head>
-      <div className='text-right'>
-        <LanguageSwitch />
-      </div>
+      <LanguageSwitch />
       <OpenLetterText />
       <div className='mx-auto prose-blue prose prose-sm sm:prose lg:prose-lg'>
-        <h2 className='pt-8 mb-4 font-bold text-xl'>{formT("heading")}</h2>
-        {(uiError || error) && (
-          <Feedback type='error'>{uiError || error}</Feedback>
-        )}
-        {isSigningLetter && (
-          <Feedback type='info'>{formT("submissionInProgressText")}</Feedback>
-        )}
-        {hasSignedLetter && !authIsVerified && (
-          <Feedback type='success'>{formT("pendingConfirmationText")}</Feedback>
-        )}
-        {hasSignedLetter && authIsVerified && (
-          <Feedback type='success'>{formT("submissionSuccessText")}</Feedback>
-        )}
-        {!hasSignedLetter && !authIsVerified && (
-          <SubmitSignatoryForm onSubmit={signLetter} />
-        )}
-        <h2 className='pt-12 mb-2 font-bold text-xl'>
-          {commonT("signatoriesHeadline")}
-        </h2>
-        {isLoading && commonT("loading")}
-        {!isLoading && (
-          <div className='mt-2'>
-            <ul>
-              {signatories.map(
-                ({ userId, firstName, lastName, organisation }) => (
-                  <li key={userId} className='text-lg'>
-                    <span className='mr-3'>{`${firstName} ${lastName}`}</span>
-                    {organisation && (
-                      <small className='text-gray-400 inline-block'>
-                        {`( ${organisation} )`}
-                      </small>
-                    )}
-                  </li>
-                )
-              )}
-            </ul>
-          </div>
-        )}
+        <SubmitSignatoryForm
+          error={uiError || error || null}
+          onSubmit={signLetter}
+          isSigningLetter={!!isSigningLetter}
+          isPendingConfirmation={!!(hasSignedLetter && !authIsVerified)}
+          hasSubmissionCompleted={!!(hasSignedLetter && authIsVerified)}
+          hasNeverSigned={!!(!hasSignedLetter && !authIsVerified)}
+        />
+        <SignaturesList isLoading={isLoading} signatories={signatories} />
       </div>
     </>
   );
