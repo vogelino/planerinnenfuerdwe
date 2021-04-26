@@ -1,41 +1,31 @@
 import * as yup from "yup";
-import { MixedSchema } from "yup/lib/mixed";
 
-export const createFormValidations = (strings: {
+interface SchemaTexts {
   invalidEmailError: string;
   requiredEmailError: string;
   requiredFirstNameError: string;
   requiredLastNameError: string;
   tooLongOrganisationNameError: string;
   requiredConditionsError: string;
-}): Record<
-  string,
-  | yup.StringSchema<
-      string | undefined,
-      Record<string, unknown>,
-      string | undefined
-    >
-  | MixedSchema<boolean | undefined, Record<string, unknown>>
-> => ({
-  requiredEmailValidation: yup
-    .string()
-    .email(strings.invalidEmailError)
-    .required(strings.requiredEmailError),
+}
 
-  requiredFirstNameValidation: yup
-    .string()
-    .required(strings.requiredFirstNameError),
+export const createFormValidations = (
+  strings: SchemaTexts
+): yup.AnyObjectSchema =>
+  yup.object().shape({
+    email: yup
+      .string()
+      .email(strings.invalidEmailError)
+      .required(strings.requiredEmailError),
 
-  requiredLastNameValidation: yup
-    .string()
-    .required(strings.requiredLastNameError),
+    firstName: yup.string().required(strings.requiredFirstNameError),
 
-  optionalOrganisationValidation: yup
-    .string()
-    .max(60, strings.tooLongOrganisationNameError),
+    lastName: yup.string().required(strings.requiredLastNameError),
 
-  requiredConditionsValidation: yup
-    .mixed()
-    .required(strings.requiredConditionsError)
-    .oneOf([true], strings.requiredConditionsError),
-});
+    organisation: yup.string().max(60, strings.tooLongOrganisationNameError),
+
+    conditionsAccepted: yup
+      .mixed()
+      .required(strings.requiredConditionsError)
+      .oneOf([true], strings.requiredConditionsError),
+  });

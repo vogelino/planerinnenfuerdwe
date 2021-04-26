@@ -1,5 +1,4 @@
 import { FC } from "react";
-import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Controller, useForm } from "react-hook-form";
 import { FormTextInput } from "@components/FormTextInput";
@@ -28,26 +27,13 @@ export const SubmitSignatoryForm: FC<SubmitSignatoryFormPropType> = ({
   hasNeverSigned,
 }) => {
   const { t } = useTranslation("signatureForm");
-  const {
-    requiredEmailValidation,
-    requiredFirstNameValidation,
-    requiredLastNameValidation,
-    optionalOrganisationValidation,
-    requiredConditionsValidation,
-  } = createFormValidations({
+  const formSchema = createFormValidations({
     invalidEmailError: t("invalidEmailError"),
     requiredEmailError: t("requiredEmailError"),
     requiredFirstNameError: t("requiredFirstNameError"),
     requiredLastNameError: t("requiredLastNameError"),
     requiredConditionsError: t("requiredConditionsError"),
     tooLongOrganisationNameError: t("tooLongOrganisationNameError"),
-  });
-  const formSchema = yup.object().shape({
-    firstName: requiredFirstNameValidation,
-    lastName: requiredLastNameValidation,
-    organisation: optionalOrganisationValidation,
-    email: requiredEmailValidation,
-    conditionsAccepted: requiredConditionsValidation,
   });
   const {
     control,

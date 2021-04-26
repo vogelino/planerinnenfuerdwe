@@ -1,4 +1,3 @@
-import * as yup from "yup";
 import { createSupabaseBackendClient } from "@auth/supabase";
 import type { NextApiRequest, NextApiResponse } from "next";
 import password from "secure-random-password";
@@ -20,26 +19,13 @@ interface ReqBodyType extends LetterSigningFormType {
 
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
 const getValidationSchema = (texts: Record<string, string>) => {
-  const {
-    requiredEmailValidation,
-    requiredFirstNameValidation,
-    requiredLastNameValidation,
-    requiredConditionsValidation,
-    optionalOrganisationValidation,
-  } = createFormValidations({
+  return createFormValidations({
     invalidEmailError: texts.invalidEmailError,
     requiredEmailError: texts.requiredEmailError,
     requiredFirstNameError: texts.requiredFirstNameError,
     requiredLastNameError: texts.requiredLastNameError,
     tooLongOrganisationNameError: texts.tooLongOrganisationNameError,
     requiredConditionsError: texts.requiredConditionsError,
-  });
-  return yup.object().shape({
-    firstName: requiredFirstNameValidation,
-    lastName: requiredLastNameValidation,
-    email: requiredEmailValidation,
-    organisation: optionalOrganisationValidation,
-    conditionsAccepted: requiredConditionsValidation,
   });
 };
 
