@@ -14,6 +14,8 @@ export const ExpandableParagraph: FC<ExpandableParagraphPropType> = ({
 }) => {
   const { t } = useTranslation("content");
   const [isExpanded, setIsExpanded] = useState(false);
+
+  if (introduction === "" && content === "") return null;
   return (
     <div className='my-4 sm:my-6 lg:my-8'>
       <div className='text-left block mx-auto prose-blue prose prose-sm sm:prose lg:prose-lg'>
