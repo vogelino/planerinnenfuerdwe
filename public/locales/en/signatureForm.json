@@ -17,6 +17,7 @@
     "requiredConditionsError": "You must accept the conditions",
     "submitButtonText": "Sign publicly",
     "optionalFieldText": "Optional",
+    "emailNotShownText": "Not visible, only to confirm signature",
     "submissionInProgressText": "Your signature is being submitted...",
     "pendingConfirmationText": "Thank you very much! Your signature was successfully submitted! We have sent you an email to verify your identity.",
     "submissionSuccessText": "Thank you very much! You have successfully signed the open letter!",

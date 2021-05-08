@@ -17,6 +17,7 @@
     "requiredConditionsError": "Sie müssen die Bedingungen akzeptieren",
     "submitButtonText": "Öffentlich unterschreiben",
     "optionalFieldText": "Optional",
+    "emailNotShownText": "Nicht sichtbar, nur zur Bestätigung der Unterschrift",
     "submissionInProgressText": "Ihre Unterschrift wird übermittelt...",
     "pendingConfirmationText": "Vielen Dank! Ihre Signatur wurde erfolgreich übermittelt! Wir haben Ihnen eine E-Mail geschickt, um Ihre Identität zu überprüfen.",
     "submissionSuccessText": "Herzlichen Dank! Sie haben den offenen Brief erfolgreich unterzeichnet!",

@@ -129,6 +129,7 @@ export const SubmitSignatoryForm: FC<SubmitSignatoryFormPropType> = ({
                   {...field}
                   label={t("emailLabel")}
                   placeholder={t("emailPlaceholder")}
+                  optionalLabel={t("emailNotShownText")}
                   type='email'
                   errors={errors.email?.message ? [errors.email?.message] : []}
                 />

@@ -59,7 +59,7 @@ exports[`Storyshots Forms/FormTextInput Optional Field 1`] = `
     First name
      
     <span
-      className="text-gray-500 float-right text-sm transform translate-y-1"
+      className="text-gray-500 text-sm transform translate-y-1"
     >
       (
       optionalFieldText

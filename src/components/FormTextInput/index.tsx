@@ -4,6 +4,7 @@ import { useTranslation } from "react-i18next";
 interface FormTextInputPropType extends HTMLProps<HTMLInputElement> {
   name: string;
   label?: string;
+  optionalLabel?: string;
   containerClassName?: string;
   errors?: string[];
   optional?: boolean;
@@ -22,6 +23,7 @@ export const FormTextInput = forwardRef<
       errors = [],
       containerClassName = "mb-2",
       className = "mb-2",
+      optionalLabel,
       ...inputProps
     },
     ref
@@ -35,9 +37,9 @@ export const FormTextInput = forwardRef<
             className='block mb-2 cursor-pointer transition hover:opacity-60'
           >
             {label}{" "}
-            {optional && (
-              <span className='text-gray-500 float-right text-sm transform translate-y-1'>
-                ({t("optionalFieldText")})
+            {(optional || optionalLabel) && (
+              <span className='text-gray-500 text-sm transform translate-y-1'>
+                ({optionalLabel || t("optionalFieldText")})
               </span>
             )}
           </label>
