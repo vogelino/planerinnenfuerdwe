@@ -2,8 +2,8 @@ import { NextApiResponse } from "next";
 import { Component } from "react";
 
 const getManifest = (): string => `{
-  "short_name": "Enteignen ⨉ Arch",
-  "name": "Enteignen ⨉ Arch",
+  "short_name": "PlanerInnen für DWE",
+  "name": "PlanerInnen für Deutsche Wohnen & Co Enteignen",
   "start_url": ".",
   "display": "standalone",
   "theme_color": "#000000",

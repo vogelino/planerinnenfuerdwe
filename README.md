@@ -1,6 +1,6 @@
-# PlanerInnen für Deutsche Wohnen & Co enteignen
+# PlanerInnen für Deutsche Wohnen & Co Enteignen
 
-This repository contains the frontend of the PlanerInnen für Deutsche Wohnen & Co enteignen open letter. It is built using [Next.js](https://nextjs.org/) and TypeScript.
+This repository contains the frontend of the PlanerInnen für Deutsche Wohnen & Co Enteignen open letter. It is built using [Next.js](https://nextjs.org/) and TypeScript.
 
 ## Getting started
 
