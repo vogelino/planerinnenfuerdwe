@@ -1,6 +1,6 @@
-# Enteignen ⨉ Arch
+# PlanerInnen für Deutsche Wohnen & Co enteignen
 
-This repository contains the frontend of the Enteignen ⨉ Arch open letter. It is built using [Next.js](https://nextjs.org/) and TypeScript.
+This repository contains the frontend of the PlanerInnen für Deutsche Wohnen & Co enteignen open letter. It is built using [Next.js](https://nextjs.org/) and TypeScript.
 
 ## Getting started
 
