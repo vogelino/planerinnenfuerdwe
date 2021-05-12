@@ -4,7 +4,6 @@ module.exports = {
   theme: {
     fontFamily: {
       sans: [
-        "IBM Plex Sans",
         "ui-sans-serif",
         "system-ui",
         "-apple-system",
