@@ -7,7 +7,7 @@ export const OpenLetterText: FC = () => {
   const { t } = useTranslation("content");
   return (
     <div className='my-8'>
-      <div className='mx-auto prose-blue prose prose-sm sm:prose lg:prose-lg'>
+      <div className='mx-auto prose-blue content prose prose-sm sm:prose lg:prose-lg'>
         <h1 className='text-4xl mb-6'>{t("title")}</h1>
         <ReactMarkdown>{t("introductionMD")}</ReactMarkdown>
       </div>

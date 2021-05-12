@@ -102,4 +102,8 @@
   [type='radio'].error {
     @apply border-red-500 text-red-500 focus:ring-red-500;
   }
+
+  .content > ul > li::before {
+    opacity: 0;
+  }
 };
