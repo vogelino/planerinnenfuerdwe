@@ -51,16 +51,18 @@ export const SubmitSignatoryForm: FC<SubmitSignatoryFormPropType> = ({
 
   return (
     <>
-      <h2 className='pt-8 mb-4 font-bold text-xl'>{t("headline")}</h2>
+      <h2 className='pt-8 mb-4 font-bold text-2xl md:text-3xl'>
+        {t("headline")}
+      </h2>
       {error && <Feedback type='error'>{error}</Feedback>}
       {isSigningLetter && (
-        <Feedback type='info'>{t("isSigningLetter")}</Feedback>
+        <Feedback type='info'>{t("submissionInProgressText")}</Feedback>
       )}
       {isPendingConfirmation && (
-        <Feedback type='success'>{t("isPendingConfirmation")}</Feedback>
+        <Feedback type='success'>{t("pendingConfirmationText")}</Feedback>
       )}
       {hasSubmissionCompleted && (
-        <Feedback type='success'>{t("hasSubmissionCompleted")}</Feedback>
+        <Feedback type='success'>{t("submissionSuccessText")}</Feedback>
       )}
       {hasNeverSigned && (
         <form onSubmit={onInternalSubmit} noValidate>

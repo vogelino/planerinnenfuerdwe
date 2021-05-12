@@ -15,6 +15,7 @@ import { LanguageSwitch } from "@components/LanguageSwitch";
 import { SignaturesList } from "@components/SignaturesList";
 import { Footer } from "@components/Footer";
 import { CookieBanner } from "@components/CookieBanner";
+import { AuthorsList } from "@components/AuthorsList";
 
 export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
   const supabaseClient = createSupabaseBackendClient();
@@ -66,7 +67,7 @@ const HomePage: FC<{
       </Head>
       <LanguageSwitch />
       <OpenLetterText />
-      <div className='mx-auto prose-blue prose prose-sm sm:prose lg:prose-lg'>
+      <div className='mx-auto max-w-full sm:max-w-2xl sm:px-6 md:max-w-3xl'>
         <SubmitSignatoryForm
           error={uiError || error || null}
           onSubmit={signLetter}
@@ -75,6 +76,7 @@ const HomePage: FC<{
           hasSubmissionCompleted={!!(hasSignedLetter && authIsVerified)}
           hasNeverSigned={!!(!hasSignedLetter && !authIsVerified)}
         />
+        <AuthorsList />
         <SignaturesList isLoading={isLoading} signatories={signatories} />
       </div>
       <Footer />
