@@ -15,5 +15,14 @@ exports[`Storyshots Layout/Footer Default 1`] = `
   >
     privacyLinkText
   </a>
+  <br />
+  <a
+    className="focus-offset underline transition hover:opacity-60 cursor-pointer text-blue-500 focus:ring-blue-500"
+    href="/imprint"
+    onClick={[Function]}
+    onMouseEnter={[Function]}
+  >
+    imprintLinkText
+  </a>
 </footer>
 `;

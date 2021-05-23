@@ -15,7 +15,7 @@ import { LanguageSwitch } from "@components/LanguageSwitch";
 import { SignaturesList } from "@components/SignaturesList";
 import { Footer } from "@components/Footer";
 import { CookieBanner } from "@components/CookieBanner";
-import { AuthorsList } from "@components/AuthorsList";
+// import { AuthorsList } from "@components/AuthorsList";
 
 export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
   const supabaseClient = createSupabaseBackendClient();
@@ -76,7 +76,7 @@ const HomePage: FC<{
           hasSubmissionCompleted={!!(hasSignedLetter && authIsVerified)}
           hasNeverSigned={!!(!hasSignedLetter && !authIsVerified)}
         />
-        <AuthorsList />
+        {/* <AuthorsList /> */}
         <SignaturesList isLoading={isLoading} signatories={signatories} />
       </div>
       <Footer />

@@ -12,6 +12,10 @@ export const Footer: FC = () => {
       <Link href='/privacy'>
         <TextLink href='/privacy'>{t("privacyLinkText")}</TextLink>
       </Link>
+      <br />
+      <Link href='/imprint'>
+        <TextLink href='/imprint'>{t("imprintLinkText")}</TextLink>
+      </Link>
     </footer>
   );
 };

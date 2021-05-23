@@ -13,7 +13,7 @@
     "emailPlaceholder": "Geben Sie Ihre E-Mail Adresse ein",
     "invalidEmailError": "Die angegebene E-Mail Adresse ist ungültig",
     "requiredEmailError": "Sie müssen eine E-Mail Adresse angeben",
-    "conditionsLabel": "Ich bin damit einverstanden, dass die oben genannten Informationen gespeichert werden und dass mein Name und meine Organisation öffentlich sichtbar gemacht werden.",
+    "conditionsLabel": "Ich bin damit einverstanden, dass die oben genannten Informationen gespeichert und mein Name und meine Organisation öffentlich sichtbar gemacht werden.",
     "requiredConditionsError": "Sie müssen die Bedingungen akzeptieren",
     "submitButtonText": "Öffentlich unterschreiben",
     "optionalFieldText": "Optional",
