@@ -17,7 +17,11 @@ The signatures of the open letter are collected on [Supabase](http://supabase.io
 - confirmedAt (timestamp, required)
 - organisation (text, optional)
 
-Then, clone this repository (the frontend), create a file on the root level named `.env` or `.env.development.local` and fill in the required values (see `.env.example` for a reference).
+Then, clone this repository (the frontend), create a file on the root level named `.env` or `.env.development.local` and fill in the required values (see `.env.example` for a reference). You need to add the following env variables as [GitHub secrets](https://docs.github.com/en/actions/security-guides/encrypted-secrets#creating-encrypted-secrets-for-a-repository) for your repository if you wish the github actions to run:
+
+- `NEXT_PRIVATE_SUPABASE_SERVICE_KEY`
+- `NEXT_PUBLIC_SUPABASE_ANON_KEY`
+- `NEXT_PUBLIC_SUPABASE_URL`
 
 Finally, run `npm install` to install all required dependencies and then `npm run dev` to start developing locally. All available script can be found further down.
 
