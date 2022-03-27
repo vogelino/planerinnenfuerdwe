@@ -27,3 +27,6 @@ jobs:
       - run: npm run test:ci 
         env:
           CI: true
+          NEXT_PRIVATE_SUPABASE_SERVICE_KEY: ${{ secrets.NEXT_PRIVATE_SUPABASE_SERVICE_KEY }}
+          NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }}
+          NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
