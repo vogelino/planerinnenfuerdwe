@@ -72,6 +72,6 @@ export default async (
       throw "No userId was returned from signUp";
     }
   } catch (err) {
-    res.status(401).json({ message: new Error(err).message });
+    res.status(401).json({ message: new Error(err as string).message });
   }
 };

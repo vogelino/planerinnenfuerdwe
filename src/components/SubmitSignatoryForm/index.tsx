@@ -142,7 +142,6 @@ export const SubmitSignatoryForm: FC<SubmitSignatoryFormPropType> = ({
             <Controller
               name='conditionsAccepted'
               control={control}
-              defaultValue=''
               render={({ field }) => (
                 <FormCheckbox
                   {...field}

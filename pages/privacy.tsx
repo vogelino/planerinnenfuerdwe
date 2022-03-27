@@ -1,5 +1,5 @@
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
-import { GetServerSideProps } from "next";
+import { GetStaticProps } from "next";
 import { FC } from "react";
 import Head from "next/head";
 import { useTranslation } from "react-i18next";
@@ -9,7 +9,7 @@ import ReactMarkdown from "react-markdown";
 import { Footer } from "@components/Footer";
 import { CookieBanner } from "@components/CookieBanner";
 
-export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
+export const getStaticProps: GetStaticProps = async ({ locale }) => {
   return {
     props: {
       ...(locale
@@ -20,6 +20,7 @@ export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
           )
         : {}),
     },
+    revalidate: 60 * 60,
   };
 };
 

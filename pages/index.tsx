@@ -4,7 +4,7 @@ import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { SubmitSignatoryForm } from "@components/SubmitSignatoryForm";
 import { useSignatories } from "@lib/hooks/useSignatories";
 import { getSignatories } from "@lib/requests/getSignatories";
-import { GetServerSideProps } from "next";
+import { GetStaticProps } from "next";
 import { FC } from "react";
 import { SignatoryType } from "../src/types/supabase";
 import { OpenLetterText } from "@components/OpenLetterText";
@@ -17,7 +17,7 @@ import { Footer } from "@components/Footer";
 import { CookieBanner } from "@components/CookieBanner";
 // import { AuthorsList } from "@components/AuthorsList";
 
-export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
+export const getStaticProps: GetStaticProps = async ({ locale }) => {
   const supabaseClient = createSupabaseBackendClient();
   const { signatories, error } = await getSignatories(supabaseClient);
   return {
@@ -39,6 +39,7 @@ export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
           )
         : {}),
     },
+    revalidate: 60,
   };
 };
 

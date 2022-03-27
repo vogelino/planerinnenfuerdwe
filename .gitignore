@@ -26,4 +26,5 @@ yarn-error.log*
 .next
 .vercel
 .tsconfig-lint.json
+.tsconfig-lint.tsbuildinfo
 storybook-static
