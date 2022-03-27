@@ -1,8 +1,13 @@
-# PlanerInnen für Deutsche Wohnen & Co Enteignen
+# [PlanerInnen für Deutsche Wohnen & Co Enteignen](https://planerinnenfuerdwe.de/en)
 
-This repository contains the frontend of the PlanerInnen für Deutsche Wohnen & Co Enteignen open letter. It is built using [Next.js](https://nextjs.org/) and TypeScript.
+![](/README.png)
 
-## Getting started
+_PlanerInnen für Deutsche Wohnen & Co Enteignen_ is an open letter from Berlin architects to support the project [_Deutsche Wohnen & Co Enteignen_](https://www.dwenteignen.de/) project, a city-wide campaign to release Berlin's private housing back into the affordable rental market. (Read the letter [here](https://planerinnenfuerdwe.de/en))
+
+
+This is the open letter's repository, built using [Next.js](https://nextjs.org/) and TypeScript.
+
+## Run this repo locally
 
 Clone this repository, then on the root level create a file named `.env` or `.env.development.local` and fill in the required values (see `.env.example` for a reference).
 
