@@ -22,11 +22,12 @@ jobs:
           node-version: ${{ matrix.node-version }}
       - run: npm ci
       - run: npm run build --if-present
+        env:
+          NEXT_PRIVATE_SUPABASE_SERVICE_KEY: ${{ secrets.NEXT_PRIVATE_SUPABASE_SERVICE_KEY }}
+          NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }}
+          NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
       - run: npm run lint
       - run: npm run type-check
       - run: npm run test:ci 
         env:
           CI: true
-          NEXT_PRIVATE_SUPABASE_SERVICE_KEY: ${{ secrets.NEXT_PRIVATE_SUPABASE_SERVICE_KEY }}
-          NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }}
-          NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
