@@ -7,15 +7,23 @@ _PlanerInnen für Deutsche Wohnen & Co Enteignen_ is an open letter from Berlin 
 
 This is the open letter's repository, built using [Next.js](https://nextjs.org/) and TypeScript.
 
-## Run this repo locally
+## Replicate this project
 
-Clone this repository, then on the root level create a file named `.env` or `.env.development.local` and fill in the required values (see `.env.example` for a reference).
+The signatures of the open letter are collected on [Supabase](http://supabase.io) instance. To replicate this repo, you must first make sure to have your own Supabase instance (the backend) containing a single table with the following columns:
 
-Run `npm install` to install all required dependencies and then `npm run dev` to start developing locally. All available script can be found further down.
+- userId (reference to the auth table, required)
+- firstName (text, required)
+- lastName (text, required)
+- confirmedAt (timestamp, required)
+- organisation (text, optional)
+
+Then, clone this repository (the frontend), create a file on the root level named `.env` or `.env.development.local` and fill in the required values (see `.env.example` for a reference).
+
+Finally, run `npm install` to install all required dependencies and then `npm run dev` to start developing locally. All available script can be found further down.
 
 ### Quality management
 
-We use husky and lint-staged to run some quality management script before each commits. These scripts are:
+This repo use husky and lint-staged to run some quality management script before each commits. These scripts are:
 - Lint all js files
 - Type-check changed typescript files
 - Run tests concerned by changed files
@@ -24,20 +32,20 @@ To enable type checking of only staged files, a script has been added `scripts/t
 
 ## Structure
 
-The folder structure follows Next.js's recommendations.
+The folder structure follows [Next.js](https://nextjs.org/)'s recommendations.
 
 ### Views and components
 
-Page routing is achieved with Next.js's [file-system routing](https://nextjs.org/docs/routing/introduction). The views themselves are simply React components that can be found in `src/components`. All other components can be found there as well.
+Page routing is achieved with [Next.js](https://nextjs.org/)'s [file-system routing](https://nextjs.org/docs/routing/introduction). The views themselves are simply React components that can be found in `src/components`. All other components can be found there as well.
 
 ### Storybook
 
-We use [Storybook](https://storybook.js.org/) to create and test our React components in isolation.
-We also use the [storyshots addon](https://storybook.js.org/docs/react/workflows/snapshot-testing#gatsby-focus-wrapper) to create test snapshots.
+This repo uses [Storybook](https://storybook.js.org/) to create and test its React components in isolation.
+It also uses the [storyshots addon](https://storybook.js.org/docs/react/workflows/snapshot-testing#gatsby-focus-wrapper) to create test snapshots.
 
 ### Testing
 
-We use [jest](https://jestjs.io/) to unit test our code. We also use a [testing-library](https://testing-library.com/) to test our react components, user events, and other things.
+The library [jest](https://jestjs.io/) is used to unit test the code as well as [testing-library](https://testing-library.com/) to test the react components, user events, and other things.
 
 To run the tests enter:
 ```sh
@@ -49,9 +57,9 @@ Or in watch mode:
 nom run test:watch
 ```
 
-### Styling
+### Styling & Theming
 
-This project uses [Tailwind CSS](http://tailwindcss.com) for styling. Main style definitions can be found in `src/style/theme.ts`. The theme can be referenced in every component. For visual consistency, definitions from the theme should be used whenever possible. Information about using the theme can be found in Theme UI's docs.
+This project uses [Tailwind CSS](http://tailwindcss.com) for styling. The primary style definitions can be found in `src/style/theme.ts`. The theme can be referenced in every component. For visual consistency, definitions from the theme should be used whenever possible. Information about using the theme can be found in Theme UI's docs.
 
 ## Workflow
 
@@ -67,5 +75,5 @@ You can commit using the `npm run cm` command to ensure your commits follow our 
 
 ## Deployment
 
-The frontend is currently deployed to [Vercel](https://vercel.com/). Pushing to the `main` branch will automatically trigger a new deploy (this should be avoided, if possible).
+The frontend is currently deployed to [Vercel](https://vercel.com/). Pushing to the `main` branch will automatically trigger a new deploy. This should be avoided, if possible. Rather use pull requests against main.
 
